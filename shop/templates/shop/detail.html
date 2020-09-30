@@ -1,0 +1,53 @@
+{% extends "base/layout.html" %}
+{% load static %}
+
+{% block title %} {{product.name}} {% endblock title %}
+
+
+
+{% block content %}
+
+<div class="container pt-2">
+
+    <div class="row">
+
+        <div class="col-md-8">
+
+            <img src=" {{product.image.url}} " width="550px" height="550px">
+
+        </div>
+
+
+
+
+
+
+
+
+        <div class="col-md-4">
+            <h3> {{product.name}} </h3>
+
+            <a href="{{ product.category.get_absolute_url }}" class="float-right badge badge-success ">
+                {{product.category}} </a>
+            </a>
+
+            <p> {{product.description}} </p>
+            <small class="badge badge-warning"> &#x20b9 {{product.price}} </small>
+
+            <form action=" {% url 'cart:cart_add' product.id %} " method="post">
+                {% csrf_token %}
+
+                {{cart_product_form}}
+
+                <input type="submit" class="btn btn-outline-danger" value="Add Cart" name="add_to_cart"
+                                id="add_to_cart">
+
+
+            </form>
+
+        </div>
+    </div>
+</div>
+
+
+{% endblock content %}
